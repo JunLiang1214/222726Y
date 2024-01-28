@@ -1,0 +1,134 @@
+﻿@page
+@model _222726Y.Pages.RegisterModel
+@{
+}
+
+<div class="container mt-5">
+
+	<div class="row justify-content-center align-items-center">
+
+		<div class="col-sm-12 col-md-12 col-lg-4">
+			<h1 class="mb-3">Register </h1>
+
+			<form method="post" >
+				<div asp-validation-summary="All" class="text-danger"></div>
+
+				<div class="mb-3">
+					<label class="form-label" asp-for="RModel.First_Name">First Name</label>
+					<input type="Text" asp-for="RModel.First_Name" class="form-control" />
+					<span asp-validaton-for="RModel.First_Name" class="text-danger"></span>
+				</div>
+				<div class="mb-3">
+					<label class="form-label" asp-for="RModel.Last_Name">Last Name </label>
+					<input type="Text" asp-for="RModel.Last_Name" class="form-control" />
+					<span asp-validaton-for="RModel.Last_Name" class="text-danger"></span>
+				</div>
+				@* gender section *@
+				<label class="form-label" asp-for="RModel.Gender">Gender</label>
+
+				<div class="form-check">
+					<input type="radio" asp-for="RModel.Gender" value="Male" class="form-check-input" />
+					<label class="form-check-label">Male</label>
+				</div>
+
+				<div class="form-check">
+					<input type="radio" asp-for="RModel.Gender" value="Female" class="form-check-input" />
+					<label class="form-check-label">Female</label>
+				</div>
+
+				<div class="form-check">
+					<input type="radio" asp-for="RModel.Gender" value="RatherNotSay" class="form-check-input" />
+					<label class="form-check-label">Rather Not Say</label>
+				</div>
+
+				 <span asp-validation-for="RModel.Gender" class="text-danger"></span> 
+				<div class="mb-3">
+					<label class="form-label" asp-for="RModel.NRIC">NRIC</label>
+					<input type="Text" asp-for="RModel.NRIC" class="form-control" />
+					<span asp-validaton-for="RModel.NRIC" class="text-danger"></span>
+				</div>
+				<div class="mb-3">
+					<label class="form-label" asp-for="RModel.Email">Email Address</label>
+					<input type="Text" asp-for="RModel.Email" class="form-control" />
+					<span asp-validaton-for="RModel.Email" class="text-danger"></span>
+				</div>
+
+				<div class="mb-3">
+					<label class="form-label" asp-for="RModel.Password">Password</label>
+					<input type="Text" asp-for="RModel.Password" class="form-control" id="password" onchange="checkPass()" />
+					<span asp-validaton-for="RModel.Password" class="text-danger"></span>
+					<span class="passwordValid" style="font-size:10px;color:red"></span>
+				</div>
+
+				<div class="mb-3">
+					<label class="form-label" asp-for="RModel.ConfirmPassword">Confirm Password</label>
+					<input type="Text" asp-for="RModel.ConfirmPassword" class="form-control" />
+					<span asp-validaton-for="RModel.ConfirmPassword" class="text-danger"></span>
+				</div>
+				<div class="mb-3">
+					<label class="form-label" asp-for="RModel.DOB">Date Of Birth</label>
+					<input asp-for="RModel.DOB" type="date" class="form-control" />
+					<span asp-validaton-for="RModel.DOB" class="text-danger"></span>
+				</div>
+				<div class="mb-3">
+					<label class="form-label" asp-for="RModel.Resume">Resume</label>
+					<input type="file" asp-for="RModel.Resume" class="form-control" />
+					<span asp-validaton-for="RModel.Resume" class="text-danger"></span>
+				</div>
+				<div class="mb-3">
+					<label class="form-label" asp-for="RModel.WhoAmI">Who Am I</label>
+					<textarea asp-for="RModel.WhoAmI" class="form-control"></textarea>
+					<span asp-validaton-for="RModel.WhoAmI" class="text-danger"></span>
+				</div>
+
+				<div class="mb-3">
+					<button type="submit" class="btn btn-primary" onclick="checkPass() ">Register</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<script>
+	let passwordField = document.querySelector("#password");
+	let passwordError = document.querySelector(".passwordValid");
+
+	const checkPass = () => {
+		//event.preventDefault();
+		let length = passwordField.value.length ;
+		let lower = false
+		let upper = false
+		let number = false
+		let symbol = false
+		
+
+		for (let i = 0; i < passwordField.value.length; i++) {
+			let c = passwordField.value[i];
+
+			if (c.match(/[A-Z]/)) {
+				upper = true;
+			}
+			if (c.match(/[a-z]/)) {
+				lower = true;
+			}
+			if (c.match(/[0-9]/)) {
+				number = true;
+			}
+			if ("!#$%^&*()_+-={}[]:\"'<>,.?/\\|@@".indexOf(c) !== -1) {
+				symbol = true;
+			}
+		}
+
+		if (length < 12 || !lower || !upper || !number || !symbol) {
+			alert("Password should have at least 12 characters, a symbol, an uppercase and lowercase letter, and a digit");
+			passwordError.textContent = "*Password should have at least 12 characters\n a symbol\n an uppercase and lowercase letter\n and a digit"
+			return
+		}
+		
+		
+	};
+	
+	
+
+
+
+</script>
